@@ -15,13 +15,12 @@ Usage:
 where [options] are:
 EOS
 
-  opt :ident, "Ident for event", :type => String
+  opt :ident, "Ident for event", :type => String, :default => 'public'
   opt :tags, "Tags for event", :type => String
   opt :message, "Message", :type => String
 end
 
 Trollop::die :message, "need a message" if !opts[:message]
-Trollop::die :ident, "need an ident" if !opts[:ident]
 
 
 crap = {
