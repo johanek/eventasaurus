@@ -1,0 +1,6 @@
+Make producer lib
+Abstract hostnames, topics etc
+XMPP/Jabber output
+Daemonize
+Config file
+DB output (which DB? mysql i suppose)
