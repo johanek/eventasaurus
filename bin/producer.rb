@@ -5,6 +5,7 @@ require 'stomp'
 require 'json'
 require 'time'
 
+
 crap = {
   'ident'     => 'crap',
   'timestamp' => Time.now.utc.iso8601,
