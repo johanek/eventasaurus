@@ -1,10 +1,12 @@
 #!/usr/bin/ruby
 
+$LOAD_PATH.unshift File.expand_path(File.join(File.dirname(__FILE__), "..", "lib"))
 require 'rubygems'
 require 'stomp'
 require 'json'
 require 'time'
 require 'trollop'
+require 'eventasaurus/producer'
 
 opts = Trollop::options do
   banner <<-EOS
@@ -22,16 +24,18 @@ end
 
 Trollop::die :message, "need a message" if !opts[:message]
 
+tags = Array.new
+tags = opts[:tags].split(/,/) if (opts[:tags])
 
 crap = {
     'ident'     => opts[:ident],
     'timestamp' => Time.now.utc.iso8601,
-    'tags'      => opts[:tags],
+    'tags'      => tags,
     'message'   => opts[:message]
 }
 
 msg = crap.to_json
 
-stomp = Stomp::Client.new("", "", "couchdb", 61613)
-stomp.publish("/topic/VirtualTopic.johan", msg)
+stomp = Eventasaurus::Producer.new
+stomp.pub(msg)
 stomp.close
