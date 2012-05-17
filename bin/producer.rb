@@ -15,6 +15,6 @@ crap = {
 
 msg = crap.to_json
 
-stomp = Stomp::Client.new("", "", "couchdb", 61613)
-stomp.publish("/topic/VirtualTopic.johan", msg)
+stomp = Stomp::Client.new("", "", "event", 61613)
+stomp.publish("/topic/VirtualTopic.eventasaurus", msg)
 stomp.close
