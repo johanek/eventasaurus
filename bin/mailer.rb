@@ -4,6 +4,24 @@ $LOAD_PATH.unshift File.expand_path(File.join(File.dirname(__FILE__), "..", "lib
 require 'rubygems'
 require 'eventasaurus'
 require 'net/smtp'
+require 'trollop'
+
+opts = Trollop::options do
+  banner <<-EOS
+daemon to send eventasaurus events to email
+
+Usage:
+       mailer [options]
+where [options] are:
+EOS
+
+  opt :ident, "Event ident to listen for", :type => String
+  opt :option, "Email address to send events to", :type => String
+end
+
+Trollop::die :ident, "need an ident" if !opts[:ident]
+Trollop::die :option, "need an email" if !opts[:option]
+
 
 def send_email(from, to, subject, message)
   msg = <<END_OF_MESSAGE
@@ -11,7 +29,7 @@ From: <#{from}>
 To: <#{to}>
 Subject: #{subject}
 
-  #{message}
+#{message}
 END_OF_MESSAGE
 
   Net::SMTP.start('localhost') do |smtp|
@@ -19,16 +37,17 @@ END_OF_MESSAGE
   end
 end
 
-crap = Eventasaurus::Consumer.new
+stomp = Eventasaurus::Consumer.new
 
 loop do
   begin
-    msg = crap.get
-    out = "at #{msg['timestamp']} received #{msg['message']}"
+    msg = stomp.get
+    next if (msg['ident'] != opts[:ident])
+    out ="#{msg['message']}"
     msg['tags'].each do |tag|
-      out += " #" + tag
+      out += "\n#" + tag
     end
     ident = msg['ident']
-    send_email(ident, 'johan.vandendorpe@gmail.com', 'Crap', out)
+    send_email(ident, opts[:option], "Event from #{opts[:ident]}", out)
   end
 end
