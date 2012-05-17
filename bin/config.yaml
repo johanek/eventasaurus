@@ -1,0 +1,10 @@
+git:
+  things:
+  - statusnet
+  - mailer
+  statusnet: gitgit
+  mailer: jvd
+centos:
+  things:
+  - statusnet
+  statusnet: centos
