@@ -2,19 +2,49 @@
 
 require 'rubygems'
 require 'yaml'
-require 'daemons'
+require 'thor'
 
 config_file = 'config.yaml'
-config = YAML::load(File.open(config_file))
+@@config = YAML::load(File.open(config_file))
 
-config['databases'].each do |db|
-  cmd = "#{db}"
-  Daemons.run(cmd)
-end
-
-config['idents'].each do |ident,content|
-  content['things'].each do |thing|
-    cmd = "ruby #{thing} --ident #{ident} --option #{content[thing]}"
-    Daemons.run(cmd)
+def dbs(action)
+  @@config['databases'].each do |db|
+    cmd = "./#{db} #{action}"
+    system(cmd)
   end
 end
+
+def idents(action)
+  @@config['idents'].each do |ident,content|
+    content['things'].each do |thing|
+      cmd = "./#{thing} --ident #{ident} --option #{content[thing]} #{action}"
+      system(cmd)
+    end
+  end
+end
+  
+class CLI < Thor
+
+  desc "start", "start processes"
+  def start
+    dbs("start")
+    idents("start")
+  end
+  
+  desc "stop", "stop processes"
+  def stop
+    dbs("stop")
+    idents("stop")
+  end
+  
+  desc "restart", "restart processes"
+  def restart
+    dbs("restart")
+    idents("restart")
+  end
+  
+  
+  
+end
+
+CLI.start

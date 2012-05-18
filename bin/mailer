@@ -5,6 +5,7 @@ require 'rubygems'
 require 'eventasaurus'
 require 'net/smtp'
 require 'trollop'
+require 'daemons'
 
 opts = Trollop::options do
   banner <<-EOS
@@ -39,15 +40,22 @@ end
 
 stomp = Eventasaurus::Consumer.new
 
-loop do
-  begin
-    msg = stomp.get
-    next if (msg['ident'] != opts[:ident])
-    out ="#{msg['message']}"
-    msg['tags'].each do |tag|
-      out += "\n#" + tag
+options = { 
+  :dir_mode => :system,
+}
+
+process = "mailer_#{opts[:ident]}"
+Daemons.run_proc(process) do 
+  loop do
+    begin
+      msg = stomp.get
+      next if (msg['ident'] != opts[:ident])
+      out ="#{msg['message']}"
+      msg['tags'].each do |tag|
+        out += "\n#" + tag
+      end
+      ident = msg['ident']
+      send_email(ident, opts[:option], "Event from #{opts[:ident]}", out)
     end
-    ident = msg['ident']
-    send_email(ident, opts[:option], "Event from #{opts[:ident]}", out)
   end
 end

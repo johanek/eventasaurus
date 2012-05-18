@@ -8,6 +8,7 @@ require 'digest/md5'
 require 'time'
 require 'net/http'
 require 'json'
+require 'daemons'
 
 opts = Trollop::options do
   banner <<-EOS
@@ -48,10 +49,18 @@ end
 
 stomp = Eventasaurus::Consumer.new
 
-loop do
-  begin
-    msg = stomp.get
-    uri = "/eventasaurus/" + Time.now.utc.iso8601 + "_" + Digest::MD5.hexdigest(msg['message'])
-    put(uri, msg.to_json)
+options = { 
+  :dir_mode => :system,
+}
+
+Daemons.run_proc('couchdb', options) do 
+  loop do
+    begin
+      msg = stomp.get
+      uri = "/eventasaurus/" + Time.now.utc.iso8601 + "_" + Digest::MD5.hexdigest(msg['message'])
+      put(uri, msg.to_json)
+    end
   end
 end
+
+

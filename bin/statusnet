@@ -5,6 +5,7 @@ require 'rubygems'
 require 'eventasaurus'
 require 'net/http'
 require 'trollop'
+require 'daemons'
 
 opts = Trollop::options do
   banner <<-EOS
@@ -31,14 +32,21 @@ end
 
 stomp = Eventasaurus::Consumer.new
 
-loop do
-  begin
-    msg = stomp.get
-    next if (msg['ident'] != opts[:ident])
-    out ="#{msg['message']}"
-    msg['tags'].each do |tag|
-      out += "\n#" + tag
+options = { 
+  :dir_mode => :system,
+}
+
+process = "statusnet_#{opts[:ident]}"
+Daemons.run_proc(process) do   
+  loop do
+    begin
+      msg = stomp.get
+      next if (msg['ident'] != opts[:ident])
+      out ="#{msg['message']}"
+      msg['tags'].each do |tag|
+        out += "\n#" + tag
+      end
+      post(opts[:ident],opts[:option],out)
     end
-    post(opts[:ident],opts[:option],out)
   end
 end
