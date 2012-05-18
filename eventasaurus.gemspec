@@ -4,7 +4,7 @@ require "eventasaurus/version"
 
 Gem::Specification.new do |s|
   s.name        = "eventasaurus"
-  s.version     = "0.1"
+  s.version     = Eventasaurus::VERSION
   s.authors     = ["Johan van den Dorpe"]
   s.email       = ["jvd@dneg.com"]
   s.homepage    = "http://dneg.com/"

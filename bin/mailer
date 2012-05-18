@@ -42,10 +42,12 @@ stomp = Eventasaurus::Consumer.new
 
 options = { 
   :dir_mode => :system,
+  :log_dir => "/var/log/",
+  :log_output => true
 }
 
 process = "mailer_#{opts[:ident]}"
-Daemons.run_proc(process) do 
+Daemons.run_proc(process, options) do 
   loop do
     begin
       msg = stomp.get

@@ -51,6 +51,8 @@ stomp = Eventasaurus::Consumer.new
 
 options = { 
   :dir_mode => :system,
+  :log_dir => "/var/log/",
+  :log_output => true
 }
 
 Daemons.run_proc('couchdb', options) do 
