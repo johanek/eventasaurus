@@ -33,7 +33,7 @@ Subject: #{subject}
 #{message}
 END_OF_MESSAGE
 
-  Net::SMTP.start('localhost') do |smtp|
+  Net::SMTP.start('smtp') do |smtp|
     smtp.send_message msg, from, to
   end
 end
