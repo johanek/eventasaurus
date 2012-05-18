@@ -9,7 +9,7 @@ config_file = 'config.yaml'
 
 def dbs(action)
   @@config['databases'].each do |db|
-    cmd = "./#{db} #{action}"
+    cmd = "#{db} #{action}"
     system(cmd)
   end
 end
@@ -17,7 +17,7 @@ end
 def idents(action)
   @@config['idents'].each do |ident,content|
     content['things'].each do |thing|
-      cmd = "./#{thing} --ident #{ident} --option #{content[thing]} #{action}"
+      cmd = "#{thing} --ident #{ident} --option #{content[thing]} #{action}"
       system(cmd)
     end
   end
