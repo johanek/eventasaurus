@@ -23,7 +23,6 @@ where [options] are:
 end
 
 #Couchdb stuff
-
 @host = "couchdb"
 @port = 5984
 
@@ -47,7 +46,6 @@ def put(uri, json)
   request(req)
 end
 
-# Event stuff
 stomp = Eventasaurus::Consumer.new
 
 loop do
