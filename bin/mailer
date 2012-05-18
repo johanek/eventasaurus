@@ -53,9 +53,11 @@ Daemons.run_proc(process, options) do
       msg = stomp.get
       next if (msg['ident'] != opts[:ident])
       out ="#{msg['message']}"
-      msg['tags'].each do |tag|
-        out += "\n#" + tag
-      end
+      if msg['tags'] {
+        msg['tags'].each do |tag|
+          out += "\n#" + tag
+        end
+      }
       ident = msg['ident']
       send_email(ident, opts[:option], "Event from #{opts[:ident]}", out)
     end
