@@ -1,0 +1,20 @@
+#!/usr/bin/ruby
+
+require 'rubygems'
+require 'yaml'
+require 'daemons'
+
+config_file = 'config.yaml'
+config = YAML::load(File.open(config_file))
+
+config['databases'].each do |db|
+  cmd = "#{db}"
+  Daemons.run(cmd)
+end
+
+config['idents'].each do |ident,content|
+  content['things'].each do |thing|
+    cmd = "ruby #{thing} --ident #{ident} --option #{content[thing]}"
+    Daemons.run(cmd)
+  end
+end
