@@ -4,7 +4,7 @@ require 'rubygems'
 require 'yaml'
 require 'thor'
 
-config_file = 'config.yaml'
+config_file = '/etc/eventasaurus/config.yaml'
 @@config = YAML::load(File.open(config_file))
 
 def dbs(action)
