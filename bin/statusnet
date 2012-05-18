@@ -45,11 +45,11 @@ Daemons.run_proc(process, options) do
       msg = stomp.get
       next if (msg['ident'] != opts[:ident])
       out ="#{msg['message']}"
-      if msg['tags'] {
+      if msg['tags']
         msg['tags'].each do |tag|
           out += "\n#" + tag
         end
-      }
+      end
       post(opts[:ident],opts[:option],out)
     end
   end
