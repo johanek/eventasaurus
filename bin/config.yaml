@@ -1,10 +1,13 @@
-git:
-  things:
-  - statusnet
-  - mailer
-  statusnet: gitgit
-  mailer: jvd
-centos:
-  things:
-  - statusnet
-  statusnet: centos
+databases:
+  - couchdb
+idents:
+  git:
+    things:
+    - statusnet
+    - mailer
+    statusnet: gitgit
+    mailer: jvd
+  centos:
+    things:
+    - statusnet
+    statusnet: centos
