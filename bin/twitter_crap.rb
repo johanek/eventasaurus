@@ -18,8 +18,10 @@ loop do
   begin
     msg = crap.get
     out = "at #{msg['timestamp']} received #{msg['message']}"
-    msg['tags'].each do |tag|
-      out += " #" + tag
+    if msg['tags']
+      msg['tags'].split(/,/).each do |tag|
+        out += " #" + tag
+      end
     end
     Twitter.update(out)
   end
