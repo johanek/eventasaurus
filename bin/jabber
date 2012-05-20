@@ -9,18 +9,26 @@ require 'xmpp4r/muc'
 require 'daemons'
 
 
-im = Jabber::Client.new("eventasaurus@couchdb")
-im.connect
-im.auth("event")
-im.send(Jabber::Presence::new)
+options = {
+    :dir_mode => :system,
+    :log_dir => "/var/log/",
+    :log_output => true
+}
 
-m = Jabber::MUC::SimpleMUCClient.new(im)
-m.join("tech@conference.couchdb/eventasaurus")
+process = "jabber"
+Daemons.run_proc(process, options) do
 
-stomp = Eventasaurus::Consumer.new
+  im = Jabber::Client.new("eventasaurus@couchdb")
+  im.connect
+  im.auth("event")
+  im.send(Jabber::Presence::new)
 
-p "entering server loop"
-loop do
+  m = Jabber::MUC::SimpleMUCClient.new(im)
+  m.join("tech@conference.couchdb/eventasaurus")
+
+  stomp = Eventasaurus::Consumer.new
+
+  loop do
     begin
       msg = stomp.get
       out ="#{msg['message']}"
@@ -31,5 +39,6 @@ loop do
       end
       m.say(out)
     end
+  end
 end
 
