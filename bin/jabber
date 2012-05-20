@@ -1,0 +1,35 @@
+#!/usr/bin/ruby
+
+$LOAD_PATH.unshift File.expand_path(File.join(File.dirname(__FILE__), "..", "lib"))
+require 'rubygems'
+require 'eventasaurus'
+require 'rubygems'
+require 'xmpp4r'
+require 'xmpp4r/muc'
+require 'daemons'
+
+
+im = Jabber::Client.new("eventasaurus@couchdb")
+im.connect
+im.auth("event")
+im.send(Jabber::Presence::new)
+
+m = Jabber::MUC::SimpleMUCClient.new(im)
+m.join("tech@conference.couchdb/eventasaurus")
+
+stomp = Eventasaurus::Consumer.new
+
+p "entering server loop"
+loop do
+    begin
+      msg = stomp.get
+      out ="#{msg['message']}"
+      if msg['tags']
+        msg['tags'].each do |tag|
+          out += " #" + tag
+        end
+      end
+      m.say(out)
+    end
+end
+
