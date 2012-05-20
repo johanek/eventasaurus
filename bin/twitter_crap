@@ -1,5 +1,10 @@
 #!/usr/bin/ruby
 
+#
+# twitter - eventasaurus consumer plugin to send event notifications to twitter
+# this plugin is a proof of concept only
+#
+
 $LOAD_PATH.unshift File.expand_path(File.join(File.dirname(__FILE__), "..", "lib"))
 require 'rubygems'
 require 'eventasaurus'

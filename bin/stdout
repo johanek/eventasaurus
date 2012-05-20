@@ -1,5 +1,9 @@
 #!/usr/bin/ruby
 
+#
+# stdout - eventasaurus consumer plugin to send event notifications to stdout
+#
+
 $LOAD_PATH.unshift File.expand_path(File.join(File.dirname(__FILE__), "..", "lib"))
 require 'rubygems'
 require 'eventasaurus'

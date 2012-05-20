@@ -1,5 +1,8 @@
 module Eventasaurus
   class Producer
+
+    #require options at initialise
+
     def initialize
       @client = Stomp::Client.new("", "", "event", 61613, true)
     end
@@ -11,7 +14,6 @@ module Eventasaurus
     def close
       @client.close
     end
-    
   end
 end
 

@@ -1,5 +1,9 @@
 #!/usr/bin/ruby
 
+#
+# launcher - read eventasaurus consumer config and launch required agents
+#
+
 require 'rubygems'
 require 'yaml'
 require 'thor'

@@ -1,5 +1,12 @@
 #!/usr/bin/ruby
 
+#
+# jabber - eventasaurus consumer plugin to send event notifications to jabber
+#
+# TODO: abstract authentication/rooms etc
+#       add avatar support
+#
+
 $LOAD_PATH.unshift File.expand_path(File.join(File.dirname(__FILE__), "..", "lib"))
 require 'rubygems'
 require 'eventasaurus'

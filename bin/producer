@@ -1,5 +1,9 @@
 #!/usr/bin/ruby
 
+#
+# producer - basic eventasaurus producer template
+#
+
 require 'rubygems'
 require 'stomp'
 require 'json'

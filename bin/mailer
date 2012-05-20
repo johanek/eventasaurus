@@ -1,5 +1,11 @@
 #!/usr/bin/ruby
 
+#
+# mailer - eventasaurus consumer plugin to send event notifications via email
+#
+# TODO: abstract smtp host
+#
+
 $LOAD_PATH.unshift File.expand_path(File.join(File.dirname(__FILE__), "..", "lib"))
 require 'rubygems'
 require 'eventasaurus'
@@ -9,7 +15,7 @@ require 'daemons'
 
 opts = Trollop::options do
   banner <<-EOS
-daemon to send eventasaurus events to email
+daemon to send eventasaurus notifications to email
 
 Usage:
        mailer [options]

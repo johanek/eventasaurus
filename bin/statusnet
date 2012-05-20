@@ -1,5 +1,11 @@
 #!/usr/bin/ruby
 
+#
+# statusnet - eventasaurus consumer plugin to send event notifications to statusnet
+#
+# TODO: abstract statusnet host
+#
+
 $LOAD_PATH.unshift File.expand_path(File.join(File.dirname(__FILE__), "..", "lib"))
 require 'rubygems'
 require 'eventasaurus'
@@ -9,7 +15,7 @@ require 'daemons'
 
 opts = Trollop::options do
   banner <<-EOS
-daemon to send eventasaurus events to statusnet
+daemon to send eventasaurus notifications to statusnet
 
 Usage:
        statusnet [options]

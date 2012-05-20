@@ -1,5 +1,11 @@
 #!/usr/bin/ruby
 
+#
+# couchdb - eventasaurus consumer plugin to send event notifications to couchdb
+#
+# TODO: abstract host - everything goes to hostname couchdb presently
+#
+
 $LOAD_PATH.unshift File.expand_path(File.join(File.dirname(__FILE__), "..", "lib"))
 require 'rubygems'
 require 'eventasaurus'
@@ -12,7 +18,7 @@ require 'daemons'
 
 opts = Trollop::options do
   banner <<-EOS
-daemon to send eventasaurus events to couchdb
+daemon to send eventasaurus notifications to couchdb
 
 Usage:
        couchdb [options]

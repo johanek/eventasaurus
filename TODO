@@ -1,6 +1,46 @@
-Make producer lib
-Abstract hostnames, topics etc
-XMPP/Jabber output
-Daemonize
-Config file
-DB output (which DB? mysql i suppose)
+Lib: Abstract hostnames, topics etc
+     Make queue names persistent between launches
+     Message verification in consumer
+
+Config: think about it more
+ - databases are for all events
+ - statusnet & email filter by ident and have their own process
+ - should jabber be like a database or statusnet/email?
+ - does the jabber code change or does the config/launcher change?
+ (abstraction - each service has a type - all or filtered
+   option filters:
+   launch individual process for each
+   each output plugin has it's own syntax
+   options: ???
+   or just use everything else? ie:
+   statusnet:
+     all: false
+     filters:
+       - git
+       - centos
+     options:
+       git:
+         user: git
+         password: gitgit
+       centos:
+         user: centos
+         password: centos
+   jabber:
+     all: true
+     options:
+       user: eventasaurus@couchdb
+       password: event
+       room: tech@conferences.couchdb
+       nick: eventasaurus
+   jabber:
+     all: false
+     filters:
+       - git
+     options:
+       git:
+         user: gitasaurus@couchdb
+         password: gitgit
+         room: tech@conferences.couchdb
+         nick: gitasaurus
+   )
+Jabber: avatar
