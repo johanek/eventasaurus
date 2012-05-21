@@ -44,7 +44,8 @@ END_OF_MESSAGE
   end
 end
 
-stomp = Eventasaurus::Consumer.new
+process = "mailer_#{opts[:ident]}"
+stomp = Eventasaurus::Consumer.new(process)
 
 options = { 
   :dir_mode => :system,
@@ -52,7 +53,6 @@ options = {
   :log_output => true
 }
 
-process = "mailer_#{opts[:ident]}"
 Daemons.run_proc(process, options) do 
   loop do
     begin

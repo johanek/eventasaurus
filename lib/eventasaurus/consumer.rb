@@ -4,10 +4,9 @@ module Eventasaurus
     #require options at initialize
     #rand should be a hash
 
-    def initialize
+    def initialize(process)
       @client = Stomp::Connection.new("", "", "event", 61613, true)
-      rand = (0...50).map{ ('a'..'z').to_a[rand(26)] }.join
-      @client.subscribe("/queue/Consumer.#{rand}.VirtualTopic.eventasaurus")
+      @client.subscribe("/queue/Consumer.#{process}.VirtualTopic.eventasaurus")
     end
 
     def get

@@ -17,7 +17,8 @@ Twitter.configure do |config|
   config.oauth_token_secret = ''
 end
 
-crap = Eventasaurus::Consumer.new
+process = 'twitter'
+crap = Eventasaurus::Consumer.new(process)
 
 loop do
   begin

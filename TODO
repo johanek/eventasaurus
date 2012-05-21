@@ -1,5 +1,4 @@
 Lib: Abstract hostnames, topics etc
-     Make queue names persistent between launches
      Message verification in consumer
 
 Config: think about it more

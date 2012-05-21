@@ -36,7 +36,8 @@ def post(user, pass, status)
   res.body
 end
 
-stomp = Eventasaurus::Consumer.new
+process = "statusnet_#{opts[:ident]}"
+stomp = Eventasaurus::Consumer.new(process)
 
 options = { 
   :dir_mode => :system,
@@ -44,7 +45,6 @@ options = {
   :log_output => true
 }
 
-process = "statusnet_#{opts[:ident]}"
 Daemons.run_proc(process, options) do   
   loop do
     begin
