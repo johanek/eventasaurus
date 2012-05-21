@@ -35,9 +35,7 @@ Daemons.run_proc(process, options) do
   m = Jabber::MUC::SimpleMUCClient.new(im)
   m.join("tech@conference.couchdb/eventasaurus")
 
-  stomp = Eventasaurus::Consumer.new(server)
-  stomp.process = process
-  stomp.topic = topic
+  stomp = Eventasaurus::Consumer.new(topic, process, server)
   
   loop do
     begin

@@ -8,7 +8,7 @@ $LOAD_PATH.unshift File.expand_path(File.join(File.dirname(__FILE__), "..", "lib
 require 'rubygems'
 require 'eventasaurus'
 
-crap = Eventasaurus::Consumer.new('stdout')
+crap = Eventasaurus::Consumer.new('eventasaurus', 'stdout', 'event')
 
 loop do
   begin

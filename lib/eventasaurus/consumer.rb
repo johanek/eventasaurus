@@ -1,11 +1,9 @@
 module Eventasaurus
   class Consumer
 
-    attr_writer :topic, :process
-
-    def initialize(hostname, port='61613')
-      @client = Stomp::Connection.new("", "", "event", 61613, true)
-      @client.subscribe("/queue/Consumer.#{@process}.VirtualTopic.#{@topic}")
+    def initialize(topic, process, hostname, port='61613')
+      @client = Stomp::Connection.new("", "", hostname, port, true)
+      @client.subscribe("/queue/Consumer.#{process}.VirtualTopic.#{topic}")
     end
 
     def get

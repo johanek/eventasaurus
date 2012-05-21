@@ -47,10 +47,7 @@ end
 process = "mailer_#{opts[:ident]}"
 server = 'event'
 topic = 'eventasaurus'
-
-stomp = Eventasaurus::Consumer.new(server)
-stomp.process = process
-stomp.topic = topic
+stomp = Eventasaurus::Consumer.new(topic, process, server)
 
 options = { 
   :dir_mode => :system,

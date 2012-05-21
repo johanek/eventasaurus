@@ -16,10 +16,6 @@ require 'net/http'
 require 'json'
 require 'daemons'
 
-process = 'couchdb'
-server = 'event'
-topic = 'eventasarus'
-
 opts = Trollop::options do
   banner <<-EOS
 daemon to send eventasaurus notifications to couchdb
@@ -57,9 +53,10 @@ def put(uri, json)
   request(req)
 end
 
-stomp = Eventasaurus::Consumer.new(server)
-stomp.process = process
-stomp.topic = topic
+process = 'couchdb'
+server = 'event'
+topic = 'eventasaurus'
+stomp = Eventasaurus::Consumer.new(topic, process, server)
 
 options = { 
   :dir_mode => :system,
