@@ -20,18 +20,18 @@ The JSON looks like
 Producers
 ---------
 
-eventasaurus-rex:   creates a properly formatted notification to send to a topic, and is usable as a command line interface scripts
-producer:           an example showing how to deliver messages directly to a topic
+* eventasaurus-rex:   creates a properly formatted notification to send to a topic, and is usable as a command line interface scripts
+* producer:           an example showing how to deliver messages directly to a topic
 
 Consumers
 ---------
 
-couchdb:        send all events to a couchdb instance
-jabber:         send all events to a XMPP/Jabber chat room
-mailer:         send events matching ident to a specific email address
-statusnet:      send events matching ident to a statusnet account
-stdout:         example showing how to read events using eventasaurus library
-twitter_crap:   example showing how to send events to a twitter account
+* couchdb:        send all events to a couchdb instance
+* jabber:         send all events to a XMPP/Jabber chat room
+* mailer:         send events matching ident to a specific email address
+* statusnet:      send events matching ident to a statusnet account
+* stdout:         example showing how to read events using eventasaurus library
+* twitter_crap:   example showing how to send events to a twitter account
 
 Launcher
 --------
