@@ -1,12 +1,11 @@
 module Eventasaurus
   class Consumer
 
-    #require options at initialize
-    #rand should be a hash
+    attr_writer :topic, :process
 
-    def initialize(process)
+    def initialize(hostname, port='61613')
       @client = Stomp::Connection.new("", "", "event", 61613, true)
-      @client.subscribe("/queue/Consumer.#{process}.VirtualTopic.eventasaurus")
+      @client.subscribe("/queue/Consumer.#{@process}.VirtualTopic.#{@topic}")
     end
 
     def get

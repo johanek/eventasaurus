@@ -45,7 +45,12 @@ END_OF_MESSAGE
 end
 
 process = "mailer_#{opts[:ident]}"
-stomp = Eventasaurus::Consumer.new(process)
+server = 'event'
+topic = 'eventasaurus'
+
+stomp = Eventasaurus::Consumer.new(server)
+stomp.process = process
+stomp.topic = topic
 
 options = { 
   :dir_mode => :system,

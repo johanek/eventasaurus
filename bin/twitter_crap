@@ -18,7 +18,12 @@ Twitter.configure do |config|
 end
 
 process = 'twitter'
-crap = Eventasaurus::Consumer.new(process)
+server = 'event'
+topic = 'eventasaurus'
+
+stomp = Eventasaurus::Consumer.new(server)
+stomp.process = process
+stomp.topic = topic
 
 loop do
   begin

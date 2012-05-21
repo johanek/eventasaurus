@@ -15,6 +15,9 @@ require 'xmpp4r'
 require 'xmpp4r/muc'
 require 'daemons'
 
+process = 'jabber'
+server = 'event'
+topic = 'eventasaurus'
 
 options = {
     :dir_mode => :system,
@@ -22,7 +25,6 @@ options = {
     :log_output => true
 }
 
-process = "jabber"
 Daemons.run_proc(process, options) do
 
   im = Jabber::Client.new("eventasaurus@couchdb")
@@ -33,8 +35,10 @@ Daemons.run_proc(process, options) do
   m = Jabber::MUC::SimpleMUCClient.new(im)
   m.join("tech@conference.couchdb/eventasaurus")
 
-  stomp = Eventasaurus::Consumer.new
-
+  stomp = Eventasaurus::Consumer.new(server)
+  stomp.process = process
+  stomp.topic = topic
+  
   loop do
     begin
       msg = stomp.get
