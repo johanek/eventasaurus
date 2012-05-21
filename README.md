@@ -9,7 +9,7 @@ Producers create JSON encoded messages that are sent to a virtual topic via stom
 Consumers read those messages on their own queue for that virtual topic
 
 The JSON looks like
-        ['a', 'b'].map { |x| x.uppercase }
+
         {	
           "timestamp" => "2012-05-21T20:58:36Z",    # ISO8601 time
           "ident" => "event",                       # Identity of producer, string
