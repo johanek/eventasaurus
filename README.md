@@ -6,6 +6,7 @@ How it works
 ------------
 
 Producers create JSON encoded messages that are sent to a virtual topic via stomp
+
 Consumers read those messages on their own queue for that virtual topic
 
 The JSON looks like
