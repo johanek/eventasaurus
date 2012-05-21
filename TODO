@@ -1,5 +1,4 @@
-Lib: Abstract hostnames, topics etc
-     Message verification in consumer
+Lib: Message verification in consumer
 
 Config: think about it more
  - databases are for all events
@@ -43,3 +42,6 @@ Config: think about it more
          nick: gitasaurus
    )
 Jabber: avatar
+
+Filters: Jenkins-notification bridge
+		 REST API
