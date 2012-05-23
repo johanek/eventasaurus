@@ -26,6 +26,5 @@ Gem::Specification.new do |s|
   s.add_runtime_dependency "json"
   s.add_runtime_dependency "thor"
   s.add_runtime_dependency "xmpp4r"
-  s.add_runtime_dependency "xmpp4r/muc"
 
 end
