@@ -10,6 +10,11 @@ module Eventasaurus
       msg = @client.receive
       JSON.parse(msg.body)
     end
+    
+    def close
+      @client.close
+    end
+    
   end
 end
 
