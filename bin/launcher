@@ -23,7 +23,7 @@ def launch(action)
         end
       end
     cmd += " #{action}"
-    puts cmd
+    system(cmd)
     
     # filter = something
     else
@@ -35,7 +35,7 @@ def launch(action)
           end
         end
       cmd += " #{action}"  
-      puts cmd
+      system(cmd)
       end
     end        
   end
