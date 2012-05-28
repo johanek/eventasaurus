@@ -8,12 +8,27 @@ $LOAD_PATH.unshift File.expand_path(File.join(File.dirname(__FILE__), "..", "lib
 require 'rubygems'
 require 'eventasaurus'
 
-crap = Eventasaurus::Consumer.new('eventasaurus', 'stdout', 'event')
+#crap = Eventasaurus::Consumer.new('eventasaurus', 'stdout', 'event')
+
+queue = "/queue/Consumer.stdout.VirtualTopic.eventasaurus"
+
+puts "Consumer for queue #{queue}"
+
+client = Stomp::Client.new "", "", "event", 61613, true
+
 
 loop do
   begin
-    msg = crap.get
-    p msg
+    
+    client.subscribe queue, { :ack => :client } do | message |
+          puts "message=#{message.body}"
+          client.acknowledge message # tell the server the message was handled and to dispose of it
+        end
+        client.join # without this the above subscription is not activated.
+        client.close
+    
+    #msg = crap.get
+    #p msg
 
     #out = msg['ident'] + " " + msg['message']
     #msg['tags'].split(/,/).each do |tag|
