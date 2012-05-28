@@ -1,13 +1,14 @@
-databases:
-  - couchdb
-idents:
-  git:
-    things:
-    - statusnet
-    - mailer
-    statusnet: gitgit
-    mailer: jvd
-  centos:
-    things:
-    - statusnet
-    statusnet: centos
+statusnet:
+ filters:
+   - git
+   - centos
+ options:
+   git:
+     user: git
+     password: gitgit
+   centos:
+     user: centos
+     password: centos
+couchdb:
+  filters:
+    - all

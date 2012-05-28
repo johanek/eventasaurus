@@ -8,7 +8,8 @@ require 'rubygems'
 require 'yaml'
 require 'thor'
 
-config_file = '/etc/eventasaurus/config.yaml'
+#config_file = '/etc/eventasaurus/config.yaml'
+config_file = '../etc/config.yaml'
 @@config = YAML::load(File.open(config_file))
 
 def dbs(action)
@@ -26,6 +27,22 @@ def idents(action)
     end
   end
 end
+
+def something(action)
+  @@config.each_pair do |consumer, value|
+    if value['filters'].grep(/all/).any? do
+      cmd = "#{consumer}"
+      if (value['options']) do #fix this
+        value['options'].each_pair do |k,v|
+          cmd += " --#{k} #{v}"
+        end
+      end
+      puts cmd
+    end
+  end
+end
+end
+# why so many ends? any?
   
 class CLI < Thor
 
@@ -47,7 +64,10 @@ class CLI < Thor
     idents("restart")
   end
   
-  
+  desc "test", "test"
+  def test
+    something("action")
+  end
   
 end
 
