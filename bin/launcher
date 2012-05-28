@@ -8,65 +8,55 @@ require 'rubygems'
 require 'yaml'
 require 'thor'
 
-#config_file = '/etc/eventasaurus/config.yaml'
-config_file = '../etc/config.yaml'
+config_file = '/etc/eventasaurus/config.yaml'
 @@config = YAML::load(File.open(config_file))
 
-def dbs(action)
-  @@config['databases'].each do |db|
-    cmd = "#{db} #{action}"
-    system(cmd)
-  end
-end
-
-def idents(action)
-  @@config['idents'].each do |ident,content|
-    content['things'].each do |thing|
-      cmd = "#{thing} --ident #{ident} --option #{content[thing]} #{action}"
-      system(cmd)
-    end
-  end
-end
-
-def something(action)
+def launch(action)
   @@config.each_pair do |consumer, value|
-    if value['filters'].grep(/all/).any? do
+
+    # filter = all
+    if value['filters'].grep(/all/).any?
       cmd = "#{consumer}"
-      if (value['options']) do #fix this
+      if value['options'] 
         value['options'].each_pair do |k,v|
           cmd += " --#{k} #{v}"
         end
       end
+    cmd += " #{action}"
+    puts cmd
+    
+    # filter = something
+    else
+      value['filters'].each do |filter|
+        cmd = "#{consumer} --ident #{filter}"
+        if value['options'] 
+          value['options'][filter].each_pair do |k,v|
+            cmd += " --#{k} #{v}"
+          end
+        end
+      cmd += " #{action}"  
       puts cmd
-    end
+      end
+    end        
   end
 end
-end
-# why so many ends? any?
+
   
 class CLI < Thor
 
   desc "start", "start processes"
   def start
-    dbs("start")
-    idents("start")
+    launch("start")
   end
   
   desc "stop", "stop processes"
   def stop
-    dbs("stop")
-    idents("stop")
+    launch("stop")
   end
   
   desc "restart", "restart processes"
   def restart
-    dbs("restart")
-    idents("restart")
-  end
-  
-  desc "test", "test"
-  def test
-    something("action")
+    launch("restart")
   end
   
 end
