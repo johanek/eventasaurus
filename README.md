@@ -40,6 +40,7 @@ Launcher
 launcher reads /etc/eventasaurus/config.yaml and launches various consumers as defined. consumers are created as standalone applications to allow them to be written in any language, but launched by this script.
 
 The config looks like
+
         consumer-app-with-filter:
           filters:
             - a
@@ -61,6 +62,7 @@ The config looks like
             a: b
 
 Which will run the following commands
+
 		consumer-app-with-filter --ident a --p q --r s <action>
 		consumer-app-with-filter --ident b --w x --y z <action>
 		consumer-app-no-filter <action>
