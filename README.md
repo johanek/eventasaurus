@@ -11,12 +11,12 @@ Consumers read those messages on their own queue for that virtual topic
 
 The JSON looks like
 
-        {	
-          "timestamp" => "2012-05-21T20:58:36Z",    # ISO8601 time
-          "ident" => "event",                       # Identity of producer, string
-          "tags" => ["sample", "test"],             # Tags for message, array, optional
-          "message" => "this is a sample event"     # Message body, string
-        }
+    {	
+      "timestamp" => "2012-05-21T20:58:36Z",    # ISO8601 time
+      "ident" => "event",                       # Identity of producer, string
+      "tags" => ["sample", "test"],             # Tags for message, array, optional
+      "message" => "this is a sample event"     # Message body, string
+    }
 
 Producers
 ---------
@@ -37,6 +37,37 @@ Consumers
 Launcher
 --------
 
-launcher reads config.yaml and launches various consumers as defined. consumers are created as standalone applications to allow them to be written in any language, but launched by this script.
+launcher reads /etc/eventasaurus/config.yaml and launches various consumers as defined. consumers are created as standalone applications to allow them to be written in any language, but launched by this script.
 
+The config looks like
+
+    consumer-app-with-filter:
+      filters:
+        - a
+        - b
+      options:
+        a:
+          p: q
+          r: s
+        b:
+          w: x
+          y: z
+    consumer-app-no-filter:
+      filters:
+        - all
+    consumer-app-no-filter-with-options:
+      filters:
+        - all
+      options:
+        a: b
+
+Which will run the following commands
+
+	consumer-app-with-filter --ident a --p q --r s <action>
+	consumer-app-with-filter --ident b --w x --y z <action>
+	consumer-app-no-filter <action>
+	consumer-app-no filter-with-options --a b <action>
+
+With action being one of stop, start or restart.
+		
 TODO: define config file format
